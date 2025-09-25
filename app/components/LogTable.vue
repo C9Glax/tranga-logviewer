@@ -109,7 +109,7 @@ const { copy, copied } = useClipboard();
 export interface LogEntry {
     date?: string;
     level?: string;
-    thread?: string;
+    thread: string;
     logger?: string;
     message: string;
     match: string;
@@ -154,7 +154,7 @@ const levelFilters = ref<DropdownMenuItem[]>(
     })
 );
 const threadFilters = computed(() =>
-    (props.data?.map((l) => l.thread).filter((value, index, array) => array.indexOf(value) === index) ?? []).map(
+    (props.data?.map((l) => Number.parseInt(l.thread)).filter((value, index, array) => array.indexOf(value) === index) ?? []).sort((a,b) => a < b ? -1 : 1).map(
         (t) => {
             return {
                 label: t?.toString(),
