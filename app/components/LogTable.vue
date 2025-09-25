@@ -63,12 +63,12 @@
         </template>
         <template #expand-cell="{ row }">
             <UButton
-                @click="row.toggleExpanded()"
                 variant="ghost"
                 :class="['transition-transform', row.getIsExpanded() ? 'duration-200 rotate-180' : '']"
                 aria-label="'Expand'"
                 icon="i-lucide-chevron-down"
-                square />
+                square
+                @click="row.toggleExpanded()" />
         </template>
         <template #expanded="{ row }">
             <UInput
@@ -154,14 +154,18 @@ const levelFilters = ref<DropdownMenuItem[]>(
     })
 );
 const threadFilters = computed(() =>
-    (props.data?.map((l) => Number.parseInt(l.thread)).filter((value, index, array) => array.indexOf(value) === index) ?? []).sort((a,b) => a < b ? -1 : 1).map(
-        (t) => {
+    (
+        props.data
+            ?.map((l) => Number.parseInt(l.thread))
+            .filter((value, index, array) => array.indexOf(value) === index) ?? []
+    )
+        .sort((a, b) => (a < b ? -1 : 1))
+        .map((t) => {
             return {
                 label: t?.toString(),
                 onSelect: () => table.value?.tableApi?.getColumn('thread')?.setFilterValue(t?.toString()),
             };
-        }
-    )
+        })
 );
 const messageFilterModel = ref('');
 watch(messageFilterModel, (val) => table.value?.tableApi?.getColumn('message')?.setFilterValue(val));

@@ -1,11 +1,11 @@
 <template>
     <UPage>
         <DataEntry
-            class="w-fit"
-            v-model="logModel" />
+            v-model="logModel"
+            class="w-fit" />
         <LogTable
-            class="h-full w-full absolute left-0 px-5"
             v-if="entries"
+            class="h-full w-full absolute left-0 px-5"
             :data="entries" />
     </UPage>
 </template>
