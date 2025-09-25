@@ -5,7 +5,8 @@
         v-bind="$props"
         sticky
         :ui="{ td: 'p-0', th: 'px-1 py-2' }"
-        :columns="columns">
+        :columns="columns"
+        :on-select="(r) => r.toggleExpanded()">
         <template #thread-header>
             <UDropdownMenu
                 v-if="!table?.tableApi?.getColumn('thread')?.getFilterValue()"
